@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // reste entre les scènes
     }
 
-    public void SetState(GameState newState)
+    public void setState(GameState newState)
     {
         currentState = newState;
 
