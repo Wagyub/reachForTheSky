@@ -2,21 +2,9 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
-
-    public void move(Cell cell)
+    public void PlaceSlab(SlabPlacer placer)
     {
-        transform.position = transform.position + cell.transform.position;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        placer.SetActivePawn(this);  // informe le placer du pawn actif
+        placer.TryPlaceSlab();
     }
 }
