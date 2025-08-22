@@ -17,7 +17,7 @@ public class Cell : MonoBehaviour
         Grid = grid;
         X = x;
         Y = y;
-        
+
         PositionSelf();
         // Aucune modification d'échelle du prefab !
     }
@@ -58,5 +58,10 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"Cell clicked: ({X},{Y})", this);
+    }
+
+    private void OnMouseOver()
+    {
+        Debug.Log($"Cell hover: ({X},{Y})", this);
     }
 }
