@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4847821577662690033}
   - component: {fileID: 936368169244491146}
   - component: {fileID: 1383276590127107465}
+  - component: {fileID: 5484714930319443320}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Untagged
@@ -54,7 +55,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1383276590127107465
 MonoBehaviour:
@@ -70,6 +71,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cell
   cellSize: 1
   placeAtCellCenter: 1
+--- !u!54 &5484714930319443320
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3755953151181679470}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4310935690853324198
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,7 +109,6 @@ GameObject:
   - component: {fileID: 1103100266383053056}
   - component: {fileID: 3331458500126668574}
   - component: {fileID: 2038420272706130024}
-  - component: {fileID: 5939252741984109106}
   m_Layer: 0
   m_Name: InnerCube
   m_TagString: Untagged
@@ -160,27 +187,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5939252741984109106
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4310935690853324198}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.99999994, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6486485963190422656
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +198,6 @@ GameObject:
   - component: {fileID: 7889020083559953689}
   - component: {fileID: 2737105126466461551}
   - component: {fileID: 7011494047812902461}
-  - component: {fileID: 7217955681948675070}
   m_Layer: 0
   m_Name: OuterCube
   m_TagString: Untagged
@@ -271,24 +276,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7217955681948675070
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6486485963190422656}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.99999994, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

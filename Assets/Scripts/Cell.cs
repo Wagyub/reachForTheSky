@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Cell : MonoBehaviour
@@ -13,6 +14,8 @@ public class Cell : MonoBehaviour
     
     public bool isPlayerOn { get; set; }
     
+    public MeshRenderer outerMeshRenderer;
+    private Color initalOuterColor;
     public int level {get; set;}
 
     // Appelée par Grid juste après la création
@@ -21,7 +24,9 @@ public class Cell : MonoBehaviour
         Grid = grid;
         X = x;
         Y = y;
-        
+        var t = 
+        outerMeshRenderer = transform.Find("OuterCube").GetComponent<MeshRenderer>();
+        initalOuterColor = outerMeshRenderer.material.color;
         PositionSelf();
         // Aucune modification d'échelle du prefab !
     }
@@ -62,5 +67,15 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"Cell clicked: ({X},{Y})", this);
+    }
+
+    private void OnMouseEnter()
+    {
+        outerMeshRenderer.material.color = Color.yellow;
+    }
+    
+    private void OnMouseExit()
+    {
+        outerMeshRenderer.material.color = initalOuterColor;   
     }
 }
