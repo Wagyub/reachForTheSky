@@ -5,8 +5,12 @@ public class Pawn : MonoBehaviour
 
     public void move(Cell cell)
     {
-        transform.position = transform.position + cell.transform.position;
+        transform.position = cell.transform.position;
     }
+
+
+
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

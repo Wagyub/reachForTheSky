@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
@@ -22,6 +23,10 @@ public class Grid : MonoBehaviour
     
     [Range(-45f, 45f)] public float xTilt = 10f;             // Inclinaison légère autour de Z
     public bool positionCameraOnStart = true;
+    public event Action<Grid> CellsGenerated;
+
+    public Cell[,] cells { get; private set; }
+
 
     // ... existing code ...
     void Start()
@@ -29,6 +34,7 @@ public class Grid : MonoBehaviour
         if (regenerateOnStart)
         {
             GenerateCells();
+            CellsGenerated?.Invoke(this);
         }
 
         if (positionCameraOnStart)
@@ -42,6 +48,7 @@ public class Grid : MonoBehaviour
     {
         
     }
+    
 
     // Place la caméra au centre de la grille avec une légère inclinaison en Z
     public void PositionCamera()
@@ -58,7 +65,7 @@ public class Grid : MonoBehaviour
     }
 
     // Crée (ou recrée) toutes les cellules comme enfants du conteneur
-    public void GenerateCells()
+     public void GenerateCells()
     {
         if (width <= 0 || height <= 0) return;
         if (cellPrefab == null)
@@ -92,6 +99,8 @@ public class Grid : MonoBehaviour
 
         // Base d'origine: position du GameObject + offset personnalisable
         Vector3 origin = transform.position + (Vector3)originOffset;
+        cells = new Cell[width, height];
+
 
         for (int y = 0; y < height; y++)
         {
@@ -116,6 +125,8 @@ public class Grid : MonoBehaviour
 
                 // Initialise la cellule; elle gère sa position/visuel/échelle
                 cellInstance.Initialize(this, x, y);
+                cells[x, y] = cellInstance;
+
             }
         }
     }
