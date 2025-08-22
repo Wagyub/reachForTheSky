@@ -3,17 +3,15 @@ using UnityEngine;
 public class Pawn : MonoBehaviour
 {
 
-    public Vector3 pawnPosition = Vector3.zero;
-
-    /*void pawnMove()
+    public void move(Cell cell)
     {
-        transform.position = transform.position + ajouter position de la cellule
-    }*/
+        transform.position = transform.position + cell.transform.position;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
