@@ -10,6 +10,10 @@ public class Cell : MonoBehaviour
     public Grid Grid { get; private set; }
     public int X { get; private set; }
     public int Y { get; private set; }
+    
+    public bool isPlayerOn { get; set; }
+    
+    public int level {get; set;}
 
     // Appelée par Grid juste après la création
     public void Initialize(Grid grid, int x, int y)

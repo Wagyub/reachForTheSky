@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     public Pawn pawnPrefab;
     Pawn pawn1;
     Pawn pawn2;
-
+    
+    public bool canPlay { get; set; }
+    
     public void spawnPawn()
     {
         Debug.Log("grid.cells.Length: "+" "+this.grid.cells.Length);

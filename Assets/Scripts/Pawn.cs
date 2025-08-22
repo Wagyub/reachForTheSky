@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
-
+    public bool canPlay { get; private set; }
     public void move(Cell cell)
     {
         transform.position = cell.transform.position;

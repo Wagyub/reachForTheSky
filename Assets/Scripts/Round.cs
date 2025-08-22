@@ -12,6 +12,7 @@ public class Round : MonoBehaviour
 {
     public Phase phase;
     public int number = 0;
+    public Player activePlayer { get; set; }
 
     private void Start()
     {
