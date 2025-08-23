@@ -1,0 +1,23 @@
+:root {
+}
+
+.text-input {
+}
+
+.text-input .unity-label {
+    color: rgb(241, 241, 241);
+}
+
+.text-input #unity-text-input {
+    color: rgb(0, 0, 0);
+    font-size: 50%;
+}
+
+.text-input .unity-text-field__placeholder {
+    color: rgb(166, 166, 166);
+    font-size: 50%;
+}
+
+.unity-button:hover {
+    scale: 1.1 1.1 1.1;
+}
