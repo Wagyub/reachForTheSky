@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Lobby/UISelectors/UISelector.uss?fileID=7433441132597879392&amp;guid=a336fbbc0f1c40c4aa2bca48da4892f4&amp;type=3#UISelector"/>
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(17, 57, 67);">
+        <ui:VisualElement
+                style="flex-grow: 1; align-items: center; flex-direction: column; align-self: center; justify-content: space-around; width: 100%; align-content: center;">
+            <ui:ListView name="sessions-list" class="sessions-list" focusable="false" fixed-item-height="50"
+                         item-template="project://database/Assets/Scripts/Lobby/SessionItemUI.uxml?fileID=9197481963319205126&amp;guid=5a562cca1346da34a9842d525c921008&amp;type=3#SessionItemUI"
+                         selection-type="None" show-foldout-header="false" binding-source-selection-mode="AutoAssign"
+                         show-border="false"
+                         style="height: 295px; width: 80%; left: auto; align-items: flex-start; border-left-color: rgb(0, 255, 255); border-right-color: rgb(0, 255, 255); border-top-color: rgb(0, 255, 255); border-bottom-color: rgb(0, 255, 255); background-color: rgba(255, 255, 255, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; color: rgb(229, 229, 229); font-size: 40%; align-content: stretch;"/>
+            <ui:Button text="Refresh" name="refresh-btn"
+                       style="background-color: rgba(0, 255, 255, 0.74); border-left-color: rgb(0, 255, 255); border-right-color: rgb(0, 255, 255); border-top-color: rgb(0, 255, 255); border-bottom-color: rgb(0, 255, 255); color: rgb(255, 255, 255); font-size: 50%; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement"
+                          style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: space-around;">
+            <ui:TextField name="session-name" placeholder-text="Session name" password="false"
+                          hide-placeholder-on-focus="true" enabled="true" is-delayed="false" readonly="false"
+                          class="text-input"
+                          style="width: 899px; align-items: center; justify-content: flex-end; align-self: center; flex-direction: row; color: rgb(255, 255, 255); font-size: 50%; -unity-background-image-tint-color: rgba(99, 99, 99, 0); background-color: rgba(255, 255, 255, 0); opacity: 1; border-left-color: rgb(0, 255, 255); border-right-color: rgb(0, 255, 255); border-top-color: rgb(0, 255, 255); border-bottom-color: rgb(0, 255, 255); border-top-width: 7px; border-right-width: 7px; border-bottom-width: 7px; border-left-width: 7px; border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px;"/>
+            <ui:Label text="Maximum Players :" double-click-selects-word="false" emoji-fallback-support="false"
+                      style="font-size: 40px; color: rgb(255, 255, 255); overflow: visible; position: relative; top: auto; left: auto; right: auto; bottom: auto;"/>
+            <ui:IntegerField name="session-max" value="2" hide-placeholder-on-focus="false" readonly="false"
+                             keyboard-type="Default" password="true" class="text-input"
+                             style="color: rgb(255, 255, 255); width: 62px; font-size: 50%; -unity-text-align: upper-right; text-overflow: ellipsis; border-left-color: rgb(0, 255, 255); border-right-color: rgb(0, 255, 255); border-top-color: rgb(0, 255, 255); border-bottom-color: rgb(0, 255, 255); border-top-width: 9px; border-right-width: 9px; border-bottom-width: 9px; border-left-width: 9px; border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px;"/>
+            <ui:Button text="Create Lobby" name="create-btn"
+                       style="background-color: rgba(0, 255, 255, 0.65); border-left-color: rgb(0, 255, 255); border-right-color: rgb(0, 255, 255); border-top-color: rgb(0, 255, 255); border-bottom-color: rgb(0, 255, 255); color: rgb(255, 255, 255); font-size: 50%; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

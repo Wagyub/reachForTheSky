@@ -1,0 +1,51 @@
+:root {
+}
+
+.text-input {
+}
+
+.text-input .unity-label {
+    color: rgb(241, 241, 241);
+}
+
+.text-input #unity-text-input {
+    color: rgb(0, 0, 0);
+    font-size: 50%;
+}
+
+.text-input .unity-text-field__placeholder {
+    color: rgb(166, 166, 166);
+    font-size: 50%;
+}
+
+.unity-button:hover {
+    scale: 1.1 1.1 1.1;
+    transition: scale 0.08s ease-out;
+}
+
+
+.unity-list-view > * {
+    width: 100%;
+}
+
+.unity-disabled {
+    opacity: 0.10;
+}
+
+.unity-disabled:hover {
+    scale: 1 1 1;
+}
+
+/* Désactiver le highlight hover/selected pour le ListView des sessions */
+.sessions-list .unity-list-view__item:hover,
+.sessions-list .unity-collection-view__item:hover {
+    background-color: rgba(0,0,0,0);
+    /* color: inherit;  // Supprimé: peut provoquer l'erreur Keyword/Color */
+}
+
+.sessions-list .unity-list-view__item--selected,
+.sessions-list .unity-collection-view__item--selected,
+.sessions-list .unity-collection-view__selected {
+    background-color: rgba(0,0,0,0);
+    /* color: inherit;  // Supprimé */
+}
