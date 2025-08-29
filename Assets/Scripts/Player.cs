@@ -2,60 +2,54 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Grid grid;
-
     public Pawn pawnPrefab;
-    Pawn pawn1;
-    Pawn pawn2;
-    
+    private Grid grid;
+    private Pawn pawn1;
+    private Pawn pawn2;
+
     public bool canPlay { get; set; }
-    
-    public void spawnPawn()
-    {
-        Debug.Log("grid.cells.Length: "+" "+this.grid.cells.Length);
-        Cell randomCell1 = this.grid.cells[Random.Range(0, this.grid.width), Random.Range(0, this.grid.height)];
-        Cell randomCell2 = this.grid.cells[Random.Range(0, this.grid.width), Random.Range(0, this.grid.height)];
-
-        
-
-        pawn1 = Instantiate(pawnPrefab, new Vector3(0,0,0), Quaternion.identity);
-        pawn2 = Instantiate(pawnPrefab, new Vector3(0,0,0), Quaternion.identity);
-        
-        pawn1.move(randomCell1);
-        pawn2.move(randomCell2);
-        
-    }
+    public Pawn selectedPawn { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        this.grid = FindAnyObjectByType<Grid>();
+        grid = FindAnyObjectByType<Grid>();
         grid.CellsGenerated += OnGridCellsGenerated;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (!canPlay || GameManager.Instance.round.activePlayer != this) return;
+        if (!canPlay || GameManager.Instance.turn.activePlayer != this) return;
 
         if (Input.GetMouseButtonUp(0))
         {
             Debug.Log(name + "termine son tour !");
-            GameManager.Instance.round.EndTurn();
+            GameManager.Instance.turn.EndTurn();
         }
     }
-    
-    void OnDestroy()
+
+    private void OnDestroy()
     {
-        if (grid != null)
-        {
-            grid.CellsGenerated -= OnGridCellsGenerated;
-        }
+        if (grid != null) grid.CellsGenerated -= OnGridCellsGenerated;
+    }
+
+    public void spawnPawn()
+    {
+        Debug.Log("grid.cells.Length: " + " " + grid.cells.Length);
+        var randomCell1 = grid.cells[Random.Range(0, grid.width), Random.Range(0, grid.height)];
+        var randomCell2 = grid.cells[Random.Range(0, grid.width), Random.Range(0, grid.height)];
+
+
+        pawn1 = Instantiate(pawnPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        pawn2 = Instantiate(pawnPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        pawn1.move(randomCell1);
+        pawn2.move(randomCell2);
     }
 
     private void OnGridCellsGenerated(Grid g)
     {
-            spawnPawn();
+        spawnPawn();
     }
-
 }

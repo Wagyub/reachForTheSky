@@ -9,7 +9,7 @@ public enum Phase
     MOVING,
     CONSTRUCTING
 }
-public class Round : MonoBehaviour
+public class Turn : MonoBehaviour
 {
     public Phase phase;
     public int number = 0;
@@ -23,7 +23,7 @@ public class Round : MonoBehaviour
         this.phase = Phase.IDLE;
     }
 
-    public void StartRound(Player startingPlayer, Player[] allPlayers)
+    public void StartTurn(Player startingPlayer, Player[] allPlayers)
     {
         players = new List<Player>(allPlayers);
         activePlayerIndex = players.IndexOf(startingPlayer);
@@ -57,7 +57,7 @@ public class Round : MonoBehaviour
         Debug.Log("C'est au joueur " + player.name + " de jouer !");
     }
 
-    public void nextRound()
+    public void nextTurn()
     {
         this.number++;
     }

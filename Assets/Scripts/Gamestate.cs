@@ -10,25 +10,25 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;  
+    public static GameManager Instance;
     public GameState currentState;
-    public Round round;
+    public Turn turn;
     public Player[] players;
     public Player startingPlayer;
 
-    void Awake()
+    private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject); // reste entre les scènes
-        round = FindAnyObjectByType<Round>();
+        turn = FindAnyObjectByType<Turn>();
         setState(GameState.Playing);
 
         players = FindObjectsByType<Player>(FindObjectsSortMode.None);
         startingPlayer = players[0];
         setState(GameState.Playing);
-        round.StartRound(startingPlayer, players);
+        turn.StartTurn(startingPlayer, players);
     }
 
     public void setState(GameState newState)
