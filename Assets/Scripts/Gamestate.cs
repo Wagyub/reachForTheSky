@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;  
     public GameState currentState;
     public Round round;
+    public Player[] players;
     public Player startingPlayer;
 
     void Awake()
@@ -23,8 +24,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); // reste entre les scènes
         round = FindAnyObjectByType<Round>();
         setState(GameState.Playing);
-        startingPlayer = FindFirstObjectByType<Player>();
-        round.activePlayer = startingPlayer;
+
+        players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+        startingPlayer = players[0];
+        setState(GameState.Playing);
+        round.StartRound(startingPlayer, players);
     }
 
     public void setState(GameState newState)

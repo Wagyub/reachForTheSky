@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
         pawn1.move(randomCell1);
         pawn2.move(randomCell2);
         
-
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,7 +36,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!canPlay || GameManager.Instance.round.activePlayer != this) return;
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log(name + "termine son tour !");
+            GameManager.Instance.round.EndTurn();
+        }
     }
     
     void OnDestroy()

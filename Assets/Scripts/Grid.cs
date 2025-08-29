@@ -19,7 +19,7 @@ public class Grid : MonoBehaviour
 
     [Header("Caméra")]
     public Camera targetCamera;                 // Assigne la caméra dans l’inspector
-    public Vector3 cameraOffset = new Vector3(0f, 0f, -10f); // Décalage en Z pour être devant la scène
+    public Vector3 cameraOffset = new Vector3(0f, 0f, -8f); // Décalage en Z pour être devant la scène
     
     [Range(-45f, 45f)] public float xTilt = 10f;             // Inclinaison légère autour de Z
     public bool positionCameraOnStart = true;

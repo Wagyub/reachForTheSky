@@ -11,7 +11,7 @@ public class Cell : MonoBehaviour
     public Grid Grid { get; private set; }
     public int X { get; private set; }
     public int Y { get; private set; }
-    
+
     public bool isPlayerOn { get; set; }
     
     public MeshRenderer outerMeshRenderer;
