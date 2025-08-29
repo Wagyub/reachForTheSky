@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum GameState
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Turn turn;
     public Player[] players;
     public Player startingPlayer;
+    private Grid grid;
 
     private void Awake()
     {
@@ -23,13 +25,29 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject); // reste entre les scènes
         turn = FindAnyObjectByType<Turn>();
+        grid = FindAnyObjectByType<Grid>();
+        grid.CellsGenerated += OnGridCellsGenerated;
         setState(GameState.Playing);
+    }
 
+    private async void OnGridCellsGenerated(Grid g)
+    {
         players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+        StartCoroutine(SetupAndStart());
+    }
+
+    private IEnumerator SetupAndStart()
+    {
+        foreach (var player in players)
+            player.spawnPawn();
+
+        // Attendre la fin de la frame pour laisser s’exécuter les Start() des pions
+        yield return null; // ou: yield return new WaitForEndOfFrame();
+
         startingPlayer = players[0];
-        setState(GameState.Playing);
         turn.StartTurn(startingPlayer, players);
     }
+
 
     public void setState(GameState newState)
     {

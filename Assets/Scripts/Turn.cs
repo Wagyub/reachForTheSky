@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public enum Phase
@@ -9,18 +8,19 @@ public enum Phase
     MOVING,
     CONSTRUCTING
 }
+
 public class Turn : MonoBehaviour
 {
     public Phase phase;
-    public int number = 0;
-    public Player activePlayer { get; private set; }
+    public int number;
+    private int activePlayerIndex;
     private List<Player> players;
-    private int activePlayerIndex = 0;
+    public Player activePlayer { get; private set; }
 
     private void Start()
     {
-        this.number = 0;
-        this.phase = Phase.IDLE;
+        number = 0;
+        phase = Phase.IDLE;
     }
 
     public void StartTurn(Player startingPlayer, Player[] allPlayers)
@@ -40,8 +40,8 @@ public class Turn : MonoBehaviour
         StartCoroutine(ActivateNextPlayer());
     }
 
-    
-    private System.Collections.IEnumerator ActivateNextPlayer()
+
+    private IEnumerator ActivateNextPlayer()
     {
         // attendre la fin de frame → évite que l'input de la souris "pollue"
         yield return null;
@@ -53,14 +53,14 @@ public class Turn : MonoBehaviour
     {
         activePlayer = player;
         activePlayer.canPlay = true;
-
-        Debug.Log("C'est au joueur " + player.name + " de jouer !");
+        var otherPlayer = players[(activePlayerIndex + 1) % players.Count];
+        foreach (var p in activePlayer.pawns) p.isHoverable = true;
+        foreach (var p in otherPlayer.pawns) p.isHoverable = false;
+        Debug.Log("C'est au joueur " + activePlayer.name + " de jouer !");
     }
 
     public void nextTurn()
     {
-        this.number++;
+        number++;
     }
-    
 }
-

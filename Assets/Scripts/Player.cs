@@ -3,9 +3,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Pawn pawnPrefab;
+    public Pawn[] pawns;
     private Grid grid;
     private Pawn pawn1;
     private Pawn pawn2;
+
 
     public bool canPlay { get; set; }
     public Pawn selectedPawn { get; set; }
@@ -14,7 +16,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         grid = FindAnyObjectByType<Grid>();
-        grid.CellsGenerated += OnGridCellsGenerated;
     }
 
     // Update is called once per frame
@@ -29,10 +30,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        if (grid != null) grid.CellsGenerated -= OnGridCellsGenerated;
-    }
 
     public void spawnPawn()
     {
@@ -43,13 +40,8 @@ public class Player : MonoBehaviour
 
         pawn1 = Instantiate(pawnPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         pawn2 = Instantiate(pawnPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-
+        pawns = new[] { pawn1, pawn2 };
         pawn1.move(randomCell1);
         pawn2.move(randomCell2);
-    }
-
-    private void OnGridCellsGenerated(Grid g)
-    {
-        spawnPawn();
     }
 }
