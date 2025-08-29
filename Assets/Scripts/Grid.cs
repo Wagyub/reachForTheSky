@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Grid : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class Grid : MonoBehaviour
 
     public Cell[,] cells { get; private set; }
 
+    [Header("Prefab Dalle")]
+    public GameObject dallePrefab;
+
+
 
     // ... existing code ...
     void Start()
@@ -40,6 +45,14 @@ public class Grid : MonoBehaviour
         if (positionCameraOnStart)
         {
             PositionCamera();
+        }
+
+        var raycaster = targetCamera.GetComponent<PhysicsRaycaster>();
+        if (raycaster != null)
+        {
+            int dalleLayer = LayerMask.NameToLayer("Dalle");
+            if (dalleLayer != -1)
+                raycaster.eventMask &= ~(1 << dalleLayer);
         }
     }
 
@@ -126,7 +139,6 @@ public class Grid : MonoBehaviour
                 // Initialise la cellule; elle gère sa position/visuel/échelle
                 cellInstance.Initialize(this, x, y);
                 cells[x, y] = cellInstance;
-
             }
         }
     }

@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 8b89cdfad14026549acb9d189bb06c10
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cellPrefab: {instanceID: 0}
+  - targetCamera: {instanceID: 0}
+  - dallePrefabToPlace: {fileID: 3755953151181679470, guid: c083499f5743fe943aaf9c8e5fff0211, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

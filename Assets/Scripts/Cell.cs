@@ -13,10 +13,10 @@ public class Cell : MonoBehaviour
     public int Y { get; private set; }
 
     public bool isPlayerOn { get; set; }
-    
+
     public MeshRenderer outerMeshRenderer;
     private Color initalOuterColor;
-    public int level {get; set;}
+    public int level { get; set; }
 
     // Appelée par Grid juste après la création
     public void Initialize(Grid grid, int x, int y)
@@ -24,7 +24,7 @@ public class Cell : MonoBehaviour
         Grid = grid;
         X = x;
         Y = y;
-        var t = 
+        var t =
         outerMeshRenderer = transform.Find("OuterCube").GetComponent<MeshRenderer>();
         initalOuterColor = outerMeshRenderer.material.color;
         PositionSelf();
@@ -66,16 +66,69 @@ public class Cell : MonoBehaviour
     // Optionnel: interaction simple
     private void OnMouseDown()
     {
-        Debug.Log($"Cell clicked: ({X},{Y})", this);
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
+    {
+        if (hit.collider.gameObject != this.gameObject)
+            return; // on a cliqué sur autre chose qu'une cellule
+    }
+
+    if (Grid == null || Grid.dallePrefab == null)
+    {
+        Debug.LogWarning("Grid ou prefab Dalle manquant !");
+        return;
+    }
+
+    placeDalle();
     }
 
     private void OnMouseEnter()
     {
         outerMeshRenderer.material.color = Color.yellow;
     }
-    
+
     private void OnMouseExit()
     {
-        outerMeshRenderer.material.color = initalOuterColor;   
+        outerMeshRenderer.material.color = initalOuterColor;
+    }
+
+    public void placeDalle()
+    {
+        if (level >= 4)
+        {
+            Debug.Log("Impossible de jouer ici !");
+            return;
+        }
+        if (Grid.dallePrefab == null) return;
+
+        Vector3 spawnPosition = transform.position + new Vector3(0f, 0, -0.2f-0.2f*level);
+        GameObject newDalle = Instantiate(Grid.dallePrefab, spawnPosition, Quaternion.identity);
+        newDalle.layer = LayerMask.NameToLayer("Dalle"); 
+        newDalle.AddComponent<Dalle>();
+
+        level++;
+
+        Debug.Log($"La cellule ({X}, {Y}) est au niveau {level}");
+
+        Transform inner = newDalle.transform.Find("InnerCube");
+        if (inner != null)
+        {
+            MeshRenderer rend = inner.GetComponent<MeshRenderer>();
+            if (rend != null && rend.materials.Length > 0)
+            {
+                switch (level)
+                {
+                    case 1: rend.materials[0].color = Color.yellow; break;
+                    case 2: rend.materials[0].color = new Color(1f, 0.5f, 0f); break; // orange
+                    case 3: rend.materials[0].color = Color.red; break;
+                    case 4: rend.materials[0].color = Color.green; break;
+                    default: rend.materials[0].color = Color.gray; break;
+                }
+            }
+        }
+
+        if (level >= 4)
+        {
+            Debug.Log($"Le joueur {GameManager.Instance.turn.activePlayer} a gagné !");
+        }
     }
 }

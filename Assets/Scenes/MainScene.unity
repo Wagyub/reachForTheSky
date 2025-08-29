@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -269,6 +270,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70306a54d090dff4892984a097b0fbc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.PhysicsRaycaster
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentState: 0
-  round: {fileID: 0}
+  turn: {fileID: 0}
+  players: []
   startingPlayer: {fileID: 0}
 --- !u!4 &1073618544
 Transform:
@@ -531,6 +549,7 @@ MonoBehaviour:
   cameraOffset: {x: 0, y: 0, z: -10}
   xTilt: 10
   positionCameraOnStart: 1
+  dallePrefab: {fileID: 3755953151181679470, guid: 3892372703142a049ac559a8a919c748, type: 3}
 --- !u!4 &1273577920
 Transform:
   m_ObjectHideFlags: 0

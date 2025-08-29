@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: c9232c5313cbcd64f99874f1766ffcdd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - outerMeshRenderer: {instanceID: 0}
+  - dallePrefab: {fileID: 3755953151181679470, guid: c083499f5743fe943aaf9c8e5fff0211, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
