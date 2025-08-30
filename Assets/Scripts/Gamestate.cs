@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public Turn turn;
     public Player[] players;
     public Player startingPlayer;
-    private Grid grid;
+    public Grid grid;
 
     private void Awake()
     {

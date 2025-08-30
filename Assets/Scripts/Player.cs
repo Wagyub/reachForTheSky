@@ -21,13 +21,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (selectedPawn != null) selectedPawn.isSelected = true;
         if (!canPlay || GameManager.Instance.turn.activePlayer != this) return;
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Debug.Log(name + "termine son tour !");
-            GameManager.Instance.turn.EndTurn();
-        }
     }
 
 
