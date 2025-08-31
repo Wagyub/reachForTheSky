@@ -104,6 +104,64 @@ public class Turn : MonoBehaviour
         }
     }
 
+    public void chooseConstructCell(Cell selectedCell)
+    {
+        var otherPawn = activePlayer.pawns.First(p => p != activePlayer.selectedPawn);
+        otherPawn.isSelected = false;
+        otherPawn.canPlace = false;
+        otherPawn.isHoverable = false;
+        otherPawn.isSelectable = false;
+        otherPawn.isHovered = false;
+        phase = Phase.CONSTRUCTING;
+        CheckIfConstructingPhase(selectedCell);
+    }
+
+    public void CheckIfConstructingPhase(Cell selectedCell)
+    {
+        // Reset all cells
+        foreach (var c in grid.cells) c.resetCell();
+
+        if (phase != Phase.CONSTRUCTING || activePlayer == null || selectedCell == null) return;
+
+        // Check all 8 neighbors
+        for (var dy = -1; dy <= 1; dy++)
+        for (var dx = -1; dx <= 1; dx++)
+        {
+            if (dx == 0 && dy == 0) continue; // skip the selected cell itself
+
+            var nx = selectedCell.X + dx;
+            var ny = selectedCell.Y + dy;
+
+            // Skip out-of-bounds
+            if (nx < 0 || ny < 0 || nx >= grid.width || ny >= grid.height) continue;
+
+            var neighbor = grid.cells[nx, ny];
+
+            // Skip if level >= 3
+            if (neighbor.level >= 3) continue;
+
+            // Must have same level as selected cell
+            if (neighbor.level != selectedCell.level) continue;
+
+            // Check if any pawn is occupying the neighbor
+            var occupied = false;
+            foreach (var player in players)
+            {
+                foreach (var pawn in player.pawns)
+                    if (getIfPawnInCellFromPawnPosition(pawn.transform.position, neighbor.transform.position))
+                    {
+                        occupied = true;
+                        break;
+                    }
+
+                if (occupied) break;
+            }
+
+            if (!occupied) neighbor.isAvaiableConstructingCell = true;
+        }
+    }
+
+
     public bool getIfPawnInCellFromPawnPosition(Vector3 pawnPosition, Vector3 cellPosition)
     {
         // Comparaison sur X/Y uniquement, car Z est décalé pour les pions

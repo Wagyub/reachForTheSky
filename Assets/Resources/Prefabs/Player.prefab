@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c5a438b3a62b8843a1d8d7427c7bb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+  pawnPrefab: {fileID: 6967925431519171081, guid: 2b0c557c7c785804abfc95e399f042db, type: 3}
+  pawns: []

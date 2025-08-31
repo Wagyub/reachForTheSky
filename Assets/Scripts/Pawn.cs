@@ -82,7 +82,7 @@ public class Pawn : MonoBehaviour
             nameTMP.gameObject.SetActive(true);
             if (isSelectable)
             {
-                nameTMP.outlineWidth = 0.2f;
+                nameTMP.outlineWidth = 0.37f;
                 nameTMP.outlineColor = Color.black;
                 nameTMP.color = new Color(initialTextColor.r, initialTextColor.b, initialTextColor.g, 255);
             }

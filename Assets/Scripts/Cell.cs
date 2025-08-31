@@ -8,9 +8,11 @@ public class Cell : MonoBehaviour
 
     public MeshRenderer outerMeshRenderer;
     public MeshRenderer innerMeshRenderer;
+    public Color initialInnerColor;
+    public Color initialOuterColor;
+    public Color avaiableMovingCellColor;
+    public Color avaiableConstructingCellColor;
     private GameManager _gameManager;
-    private Color initialInnerColor;
-    private Color initialOuterColor;
 
     [Header("Runtime (lecture seule)")] public Grid Grid { get; private set; }
 
@@ -20,6 +22,7 @@ public class Cell : MonoBehaviour
     public bool isHoverable { get; set; }
     public bool isHovered { get; set; }
     public bool isAvaiableMovingCell { get; set; }
+    public bool isAvaiableConstructingCell { get; set; }
     public int level { get; set; }
 
     private void Start()
@@ -34,23 +37,22 @@ public class Cell : MonoBehaviour
         initialOuterColor = new Color(.12f, .12f, .12f);
         if (isAvaiableMovingCell)
             if (_gameManager.turn.phase == Phase.MOVING)
-                initialInnerColor = Color.darkGreen;
+                initialInnerColor = avaiableMovingCellColor;
             else initialInnerColor = new Color(0, 0.150f, 0, 255);
 
+        else if (isAvaiableConstructingCell) initialInnerColor = avaiableConstructingCellColor;
         else
             initialInnerColor = new Color(0, 0, 0, 255);
+
 
         if (isHovered)
         {
             if (isAvaiableMovingCell && _gameManager.turn.phase == Phase.MOVING)
-            {
-                innerMeshRenderer.material.color = Color.green;
                 outerMeshRenderer.material.color = Color.greenYellow;
-            }
+            else if (isAvaiableConstructingCell)
+                outerMeshRenderer.material.color = Color.cyan;
             else
-            {
                 outerMeshRenderer.material.color = Color.yellow;
-            }
         }
         else
         {
@@ -68,8 +70,37 @@ public class Cell : MonoBehaviour
                 if (isAvaiableMovingCell)
                 {
                     _gameManager.turn.activePlayer.selectedPawn.move(this);
-                    _gameManager.turn.EndTurn();
+                    _gameManager.turn.chooseConstructCell(this);
                 }
+
+                break;
+            case Phase.CONSTRUCTING:
+
+                if (isAvaiableConstructingCell)
+                    switch (level)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                            var potentialLevel = level + 1;
+                            var slabPrefab = Resources.Load<GameObject>("Prefabs/Slab_" + potentialLevel);
+                            if (slabPrefab != null)
+                            {
+                                var createdSLab = Instantiate(slabPrefab, new Vector3(), new Quaternion(), transform);
+                                var spawnPos = new Vector3(-0.79f, -(0.5f + level * 1.8f), -0.13f);
+                                var spawnRot = Quaternion.Euler(-180f, 0f, 0f);
+                                createdSLab.transform.localScale = new Vector3(0.84f, 6f, 1.3f);
+                                createdSLab.transform.localPosition = spawnPos;
+                                createdSLab.transform.localRotation = spawnRot;
+                                level++;
+                            }
+                            else
+                            {
+                                Debug.LogError("Slab_1 prefab not found in Resources/Prefabs!");
+                            }
+
+                            break;
+                    }
 
                 break;
             default:
@@ -135,5 +166,6 @@ public class Cell : MonoBehaviour
     public void resetCell()
     {
         isAvaiableMovingCell = false;
+        isAvaiableConstructingCell = false;
     }
 }
