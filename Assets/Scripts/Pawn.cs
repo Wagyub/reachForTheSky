@@ -1,13 +1,24 @@
+using TMPro;
 using UnityEngine;
 
 public class Pawn : MonoBehaviour
 {
+    [Header("Text")] [SerializeField] private Vector3 offsetText = new(0, .2f, 0);
+
+    [SerializeField] private Color initialTextColor;
     [Header("Outline")] [SerializeField] private Color hoverOutlineColor = Color.yellow;
 
     [SerializeField] private Color selectableOutlineColor = Color.saddleBrown;
     [SerializeField] private Color selectedOutlineColor = Color.lightGreen;
+
+
+    [SerializeField] private float baseThickness = 1f;
+    [SerializeField] private float pulseAmount = 0.5f;
+    [SerializeField] private float pulseSpeed = 2f;
     private GameObject outline;
     private Turn turn;
+    public string pawnName { get; set; }
+    public TextMeshProUGUI nameTMP { get; set; }
     public bool canPlace { get; set; }
 
     public bool isHoverable { get; set; }
@@ -22,26 +33,73 @@ public class Pawn : MonoBehaviour
     private void Start()
     {
         reset();
-        outline = transform.Find("default/outline").gameObject;
         turn = FindObjectOfType<Turn>();
+        outline = transform.Find("default/outline").gameObject;
+        nameTMP = transform.Find("Canvas/name").GetComponent<TextMeshProUGUI>();
+        nameTMP.text = pawnName;
     }
+
 
     // Update is called once per frame
     private void Update()
     {
         outline.SetActive(isHoverable);
-        if (isSelected)
+        if (outline.activeSelf)
         {
-            outline.GetComponent<MeshRenderer>().material.color = selectedOutlineColor;
+            if (isSelected)
+            {
+                outline.GetComponent<MeshRenderer>().material.color = selectedOutlineColor;
+            }
+            else
+            {
+                if (isHovered)
+                    outline.GetComponent<MeshRenderer>().material.color = hoverOutlineColor;
+                else
+                    outline.GetComponent<MeshRenderer>().material.color = selectableOutlineColor;
+            }
+
+            var pulse = baseThickness + Mathf.PingPong(Time.time * pulseSpeed, pulseAmount);
+            outline.GetComponent<MeshRenderer>().material.SetFloat("_Thickness", pulse);
+        }
+    }
+
+
+    private void LateUpdate()
+    {
+        var mainCam = FindAnyObjectByType<Camera>();
+        if (nameTMP == null || mainCam == null) return;
+
+        // World position (pawn’s head + offset)
+        var worldPos = transform.position + offsetText;
+
+        // Convert to screen space
+        var screenPos = mainCam.WorldToScreenPoint(worldPos);
+
+        // If pawn is in front of camera
+        if (screenPos.z > 0)
+        {
+            nameTMP.transform.position = screenPos;
+            nameTMP.gameObject.SetActive(true);
+            if (isSelectable)
+            {
+                nameTMP.outlineWidth = 0.2f;
+                nameTMP.outlineColor = Color.black;
+                nameTMP.color = new Color(initialTextColor.r, initialTextColor.b, initialTextColor.g, 255);
+            }
+            else
+            {
+                nameTMP.outlineColor = Color.clear;
+                nameTMP.outlineWidth = 0;
+                nameTMP.color = initialTextColor;
+            }
         }
         else
         {
-            if (isHovered)
-                outline.GetComponent<MeshRenderer>().material.color = hoverOutlineColor;
-            else
-                outline.GetComponent<MeshRenderer>().material.color = selectableOutlineColor;
+            // Behind camera → hide
+            nameTMP.gameObject.SetActive(false);
         }
     }
+
 
     private void OnMouseDown()
     {

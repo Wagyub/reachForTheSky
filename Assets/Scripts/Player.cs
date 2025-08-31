@@ -38,5 +38,7 @@ public class Player : MonoBehaviour
         pawns = new[] { pawn1, pawn2 };
         pawn1.move(randomCell1);
         pawn2.move(randomCell2);
+        pawn1.pawnName = name;
+        pawn2.pawnName = name;
     }
 }

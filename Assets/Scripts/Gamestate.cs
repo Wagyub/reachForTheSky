@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         foreach (var player in players)
             player.spawnPawn();
 
+
         // Attendre la fin de la frame pour laisser s’exécuter les Start() des pions
         yield return null; // ou: yield return new WaitForEndOfFrame();
 
